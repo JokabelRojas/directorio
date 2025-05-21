@@ -1,0 +1,81 @@
+
+  <div class="header-card">
+    <mat-icon class="header-icon">check_circle</mat-icon>
+    <h1>Datos Estudiantes</h1>
+  </div>
+
+  <div class="gestion-alumnos-container">
+    <div class="top-actions">
+      <mat-form-field appearance="outline">
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar alumno">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="abrirDialogoCrearAlumno()">
+        <mat-icon>person_add</mat-icon> Crear 
+      </button>
+    </div>
+
+    <div class="table-container">
+      <mat-table [dataSource]="dataSource()" class="mat-elevation-z8">
+
+        <!-- Columnas -->
+        <ng-container matColumnDef="n">
+          <mat-header-cell *matHeaderCellDef> N° </mat-header-cell>
+          <mat-cell *matCellDef="let alumno"> {{alumno.n}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="nombre">
+          <mat-header-cell *matHeaderCellDef> Nombres </mat-header-cell>
+          <mat-cell *matCellDef="let alumno"> {{alumno.nombre}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="apellido">
+          <mat-header-cell *matHeaderCellDef> Apellidos </mat-header-cell>
+          <mat-cell *matCellDef="let alumno"> {{alumno.apellido}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="grado">
+          <mat-header-cell *matHeaderCellDef> Semestre </mat-header-cell>
+          <mat-cell *matCellDef="let alumno"> {{alumno.grado}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="dni">
+          <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+          <mat-cell *matCellDef="let alumno"> {{alumno.dni}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="seccion">
+          <mat-header-cell *matHeaderCellDef> Gmail </mat-header-cell>
+          <mat-cell *matCellDef="let alumno"> {{alumno.seccion}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="anioEscolar">
+          <mat-header-cell *matHeaderCellDef> Periodo </mat-header-cell>
+          <mat-cell *matCellDef="let alumno"> {{alumno.anioEscolar}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="telefonoApoderado">
+          <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>
+          <mat-cell *matCellDef="let alumno"> {{alumno.telefonoApoderado}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+          <mat-cell *matCellDef="let alumno">
+            <button mat-icon-button color="primary" (click)="editarAlumno(alumno)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="eliminarAlumno(alumno)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+

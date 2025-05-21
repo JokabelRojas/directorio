@@ -1,0 +1,206 @@
+<mat-card class="directory-container">
+  
+
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Formulario de Registro</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">formulario de registro</h1>
+    <button id="addNewBtn">
+      Agregar nuevo<br />registro
+    </button>
+    <form id="registroForm" novalidate>
+      <h2 class="subtitle">Directorio telefononico</h2>
+      <div class="grid-container">
+        <div>
+          <label for="nombres">Nombres</label>
+          <input id="nombres" name="nombres" type="text" placeholder="Ingrese su nombre" required />
+          <p class="error-message" id="error-nombres">Por favor ingrese su nombre.</p>
+        </div>
+        <div>
+          <label for="apellidos">Apellidos</label>
+          <input id="apellidos" name="apellidos" type="text" placeholder="Ingrese sus apellidos" required />
+          <p class="error-message" id="error-apellidos">Por favor ingrese sus apellidos.</p>
+        </div>
+        <div>
+          <label for="telefono">Telefono</label>
+          <input id="telefono" name="telefono" type="tel" placeholder="Ingrese su telefono" pattern="^\+?\d{7,15}$" required />
+          <p class="error-message" id="error-telefono">Por favor ingrese un teléfono válido (7-15 dígitos, puede incluir +).</p>
+        </div>
+        <div>
+          <label for="departamento">Departamento</label>
+          <input id="departamento" name="departamento" type="text" placeholder="Ingrese su departamento" required />
+          <p class="error-message" id="error-departamento">Por favor ingrese su departamento.</p>
+        </div>
+        <div>
+          <label for="fecha">Fecha de nacimiento</label>
+          <div class="relative">
+            <input id="fecha" name="fecha" type="date" required />
+            <i class="fas fa-chevron-up"></i>
+          </div>
+          <p class="error-message" id="error-fecha">Por favor ingrese su fecha de nacimiento.</p>
+        </div>
+        <div>
+          <label for="provincia">Provincia</label>
+          <div class="relative">
+            <select id="provincia" name="provincia" required>
+              <option value="" disabled selected>Seleccionar</option>
+              <option value="Huanta" class="bg-blue-400 text-white">Huanta</option>
+              <option value="Ayacucho">Ayacucho</option>
+              <option value="Lima">Lima</option>
+              <option value="Cusco">Cusco</option>
+            </select>
+            <i class="fas fa-chevron-up"></i>
+          </div>
+          <p class="error-message" id="error-provincia">Por favor seleccione una provincia.</p>
+        </div>
+        <div>
+          <label for="email">Correo electronico</label>
+          <input id="email" name="email" type="email" placeholder="Ingrese su Email" required />
+          <p class="error-message" id="error-email">Por favor ingrese un correo electrónico válido.</p>
+        </div>
+        <div>
+          <label for="distrito">Distrito</label>
+          <div class="relative">
+            <select id="distrito" name="distrito" required>
+              <option value="" disabled selected>Seleccionar</option>
+              <option value="Maynay" class="bg-blue-400 text-white">Maynay</option>
+              <option value="San Juan">San Juan</option>
+              <option value="Miraflores">Miraflores</option>
+              <option value="Santiago">Santiago</option>
+            </select>
+            <i class="fas fa-chevron-up"></i>
+          </div>
+          <p class="error-message" id="error-distrito">Por favor seleccione un distrito.</p>
+        </div>
+        <div>
+          <label for="carrera">Carrera</label>
+          <input id="carrera" name="carrera" type="text" placeholder="Ingrese" required />
+          <p class="error-message" id="error-carrera">Por favor ingrese su carrera.</p>
+        </div>
+        <div class="carrera-semestre">
+          <span>semestre</span>
+          <div></div>
+        </div>
+      </div>
+      <div class="buttons">
+        <button type="button" id="cancelBtn" class="cancel">Cancelar</button>
+        <button type="submit" class="submit">Guardar</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="recordsContainer" class="hidden">
+    <h3>Registros guardados</h3>
+    <ul id="recordsList"></ul>
+  </div>
+
+<script>
+  const form = document.getElementById('registroForm');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const addNewBtn = document.getElementById('addNewBtn');
+  const recordsContainer = document.getElementById('recordsContainer');
+  const recordsList = document.getElementById('recordsList');
+
+  // Function to reset form and errors
+  function resetForm() {
+    form.reset();
+    const errorMessages = form.querySelectorAll('p.error-message');
+    errorMessages.forEach(msg => msg.classList.remove('visible'));
+  }
+
+  // Cancel button resets the form
+  cancelBtn.addEventListener('click', () => {
+    resetForm();
+  });
+
+  // Add new button scrolls to form and resets it
+  addNewBtn.addEventListener('click', () => {
+    resetForm();
+    form.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Validation function
+  function validateField(field, errorId) {
+    const errorMsg = document.getElementById(errorId);
+    if (!field.checkValidity()) {
+      errorMsg.classList.add('visible');
+      return false;
+    } else {
+      errorMsg.classList.remove('visible');
+      return true;
+    }
+  }
+
+  // Function to create a record list item
+  function createRecordItem(data) {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <span class="label">Nombres:</span> ${data.nombres} | 
+      <span class="label">Apellidos:</span> ${data.apellidos} | 
+      <span class="label">Teléfono:</span> ${data.telefono} | 
+      <span class="label">Departamento:</span> ${data.departamento} | 
+      <span class="label">Fecha Nac.:</span> ${data.fechaNacimiento} | 
+      <span class="label">Provincia:</span> ${data.provincia} | 
+      <span class="label">Email:</span> ${data.email} | 
+      <span class="label">Distrito:</span> ${data.distrito} | 
+      <span class="label">Carrera:</span> ${data.carrera}
+    `;
+    return li;
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // Validate all fields
+    let valid = true;
+    valid &= validateField(form.nombres, 'error-nombres');
+    valid &= validateField(form.apellidos, 'error-apellidos');
+    valid &= validateField(form.telefono, 'error-telefono');
+    valid &= validateField(form.departamento, 'error-departamento');
+    valid &= validateField(form.fecha, 'error-fecha');
+    valid &= validateField(form.provincia, 'error-provincia');
+    valid &= validateField(form.email, 'error-email');
+    valid &= validateField(form.distrito, 'error-distrito');
+    valid &= validateField(form.carrera, 'error-carrera');
+
+    if (!valid) return;
+
+    // Gather form data
+    const formData = {
+      nombres: form.nombres.value.trim(),
+      apellidos: form.apellidos.value.trim(),
+      telefono: form.telefono.value.trim(),
+      departamento: form.departamento.value.trim(),
+      fechaNacimiento: form.fecha.value,
+      provincia: form.provincia.value,
+      email: form.email.value.trim(),
+      distrito: form.distrito.value,
+      carrera: form.carrera.value.trim()
+    };
+
+    // Add record to list
+    const recordItem = createRecordItem(formData);
+    recordsList.appendChild(recordItem);
+
+    // Show records container if hidden
+    if (recordsContainer.classList.contains('hidden')) {
+      recordsContainer.classList.remove('hidden');
+    }
+
+    // Scroll to records container
+    recordsContainer.scrollIntoView({ behavior: 'smooth' });
+
+    // Reset form after save
+    resetForm();
+  });
+</script>
+</body>
+</html>  

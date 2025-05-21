@@ -1,0 +1,104 @@
+<div class="header-card">
+  <mat-icon class="header-icon">event</mat-icon>
+  <h1>Periodos</h1>
+</div>
+
+<!-- Tarjetas de Totales -->
+<div class="top-actions">
+  <mat-card class="estado-card activos" *ngIf="periodosActivos">
+    <mat-card-header>
+      <mat-card-title>Activos</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>{{ periodosActivos }} Periodos Activos</mat-card-content>
+  </mat-card>
+
+  <mat-card class="estado-card por-comenzar" *ngIf="periodosPorComenzar">
+    <mat-card-header>
+      <mat-card-title>Por Comenzar</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>{{ periodosPorComenzar }} Periodos Por Comenzar</mat-card-content>
+  </mat-card>
+
+  <mat-card class="estado-card finalizados" *ngIf="periodosFinalizados">
+    <mat-card-header>
+      <mat-card-title>Finalizados</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>{{ periodosFinalizados }} Periodos Finalizados</mat-card-content>
+  </mat-card>
+</div>
+
+<!-- Selector de Período + Botón al costado -->
+<div class="select-periodo">
+  <mat-form-field appearance="outline" class="select-buscador">
+    <mat-label>Buscar Período</mat-label>
+    <input matInput [(ngModel)]="periodoFiltro" (input)="filtrarPeriodos()" placeholder="Escribe para buscar..." />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="select-dropdown">
+    <mat-label>Seleccionar Período</mat-label>
+    <mat-select [(ngModel)]="periodoSeleccionado">
+      <mat-option *ngFor="let periodo of periodosFiltrados" [value]="periodo.nombre">
+        {{ periodo.nombre }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="crear-periodo-boton">
+    <button mat-flat-button color="primary" (click)="toggleFormulario()">
+      {{ mostrarFormulario ? 'Cerrar Formulario' : 'Crear Nuevo Período' }}
+    </button>
+  </div>
+</div>
+
+<!-- Formulario de Crear Nuevo Período -->
+<div class="crear-periodo" *ngIf="mostrarFormulario">
+  <h3>Crear Nuevo Período</h3>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre del Período</mat-label>
+    <input matInput [(ngModel)]="nuevoNombre" placeholder="Ejemplo: 2026 - I - Contabilidad" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Estado</mat-label>
+    <mat-select [(ngModel)]="nuevoEstado">
+      <mat-option value="activo">Activo</mat-option>
+      <mat-option value="porComenzar">Por Comenzar</mat-option>
+      <mat-option value="finalizado">Finalizado</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="accent" (click)="crearPeriodo()">
+    Guardar Período
+  </button>
+</div>
+
+<table mat-table [dataSource]="periodosFiltrados">
+  <!-- Definir las columnas con los datos a mostrar -->
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef> Nombre del Período </th>
+    <td mat-cell *matCellDef="let periodo"> {{ periodo.nombre }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="estado">
+    <th mat-header-cell *matHeaderCellDef> Estado </th>
+    <td mat-cell *matCellDef="let periodo"> {{ periodo.estado }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+    <td mat-cell *matCellDef="let periodo">
+      <button mat-icon-button (click)="editarPeriodo(periodo)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="eliminarPeriodo(periodo)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- Fila de encabezado -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <!-- Fila de contenido -->
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

@@ -1,0 +1,21 @@
+<div class="notificacion-container">
+    <h2 class="title">Notificaciones de Tareas</h2>
+  
+    <div class="tareas">
+      <mat-card class="task-card" *ngFor="let tarea of tareas">
+        <div class="card-header">
+          <div class="task-status" [ngClass]="{ 'pendiente': tarea.estado === 'Pendiente', 'aprobada': tarea.estado === 'Aprobada' }">
+            {{ tarea.estado }}
+          </div>
+          <div class="task-date">
+            <strong>Vencimiento: </strong>{{ tarea.fechaVencimiento }}
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>{{ tarea.titulo }}</h3>
+          <p>{{ tarea.descripcion }}</p>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  

@@ -1,0 +1,347 @@
+<div class="profile-container">
+    <div class="profile-header">
+      
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Perfil de Usuario Editable</title>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+
+</head>
+<body>
+  <header>
+    <img
+      src="https://storage.googleapis.com/a1aa/image/1023cc58-f33c-4bfd-4841-7ba50af2fe15.jpg"
+      alt="Blurred background banner with gradient colors"
+      draggable="false"
+      height="80"
+      width="1440"
+    />
+  </header>
+  <main>
+    <div class="profile-container">
+      <div class="profile-photo">
+        <img
+          src="https://storage.googleapis.com/a1aa/image/c0f13120-aa14-4d86-33a5-65b68ec694e4.jpg"
+          alt="Profile photo of a young man in formal suit and tie, centered in a white circular frame"
+          draggable="false"
+          height="96"
+          width="96"
+        />
+      </div>
+      <h1>JOKABEL GIOMARA ROJAS MORALES</h1>
+      <p class="email">1538326senati.pe</p>
+    </div>
+    <section class="grid-container">
+      <div class="card">
+        <div class="card-header">Información básica</div>
+        <table>
+          <tbody>
+            <tr>
+              <th>Nombre completo</th>
+              <td>
+                <a href="#">JOKABEL GIOMARA ROJAS MORALES</a>
+              </td>
+            </tr>
+            <tr>
+              <th>Dirección de correo electrónico</th>
+              <td>1538326senati.pe</td>
+            </tr>
+            <tr>
+              <th>ID de estudiante</th>
+              <td>001538326</td>
+            </tr>
+            <tr>
+              <th>Contraseña</th>
+              <td>
+                <a href="#">Cambiar contraseña</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-header">Configuración del sistema</div>
+        <table>
+          <tbody>
+            <tr>
+              <th>Idioma</th>
+              <td>
+                <a href="#">Predeterminado del sistema (Español (España))</a>
+              </td>
+            </tr>
+            <tr>
+              <th>Ajustes de privacidad</th>
+              <td>
+                <a href="#">Solo los profesores pueden ver la información de mi perfil</a>
+              </td>
+            </tr>
+            <tr>
+              <th>Ajustes de notificaciones generales</th>
+              <td>
+                <a href="#">Notificaciones de secuencias</a><br />
+                <a href="#">Notificaciones por correo electrónico</a><br />
+                <a href="#">Notificaciones emergentes</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="additional-info">
+      <div class="card-header">Información adicional</div>
+      <table>
+        <tbody>
+          <tr>
+            <th>Sexo</th>
+            <td>
+              <div class="editable-field" id="sexo-field">
+                <span class="display-text">Agregar género</span>
+                <select class="edit-input hidden" aria-label="Seleccionar sexo">
+                  <option value="" selected disabled>Seleccionar</option>
+                  <option value="masculino">Masculino</option>
+                  <option value="femenino">Femenino</option>
+                  <option value="otro">Otro</option>
+                  <option value="prefiero-no-decir">Prefiero no decir</option>
+                </select>
+                <button class="edit-btn" aria-label="Editar sexo" title="Editar sexo">✏️</button>
+                <button class="save-button hidden" aria-label="Guardar sexo">Guardar</button>
+                <button class="cancel-button hidden" aria-label="Cancelar edición sexo">Cancelar</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>Nombre adicional</th>
+            <td>
+              <div class="editable-field" id="nombre-adicional-field">
+                <span class="display-text">Agregar nombre adicional</span>
+                <input
+                  type="text"
+                  class="edit-input hidden"
+                  aria-label="Editar nombre adicional"
+                  placeholder="Nombre adicional"
+                />
+                <button class="edit-btn" aria-label="Editar nombre adicional" title="Editar nombre adicional">✏️</button>
+                <button class="save-button hidden" aria-label="Guardar nombre adicional">Guardar</button>
+                <button class="cancel-button hidden" aria-label="Cancelar edición nombre adicional">Cancelar</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>Fecha de nacimiento</th>
+            <td>
+              <div class="editable-field" id="fecha-nacimiento-field">
+                <span class="display-text">Agregar fecha de nacimiento</span>
+                <input
+                  type="date"
+                  class="edit-input hidden"
+                  aria-label="Editar fecha de nacimiento"
+                />
+                <button class="edit-btn" aria-label="Editar fecha de nacimiento" title="Editar fecha de nacimiento">✏️</button>
+                <button class="save-button hidden" aria-label="Guardar fecha de nacimiento">Guardar</button>
+                <button class="cancel-button hidden" aria-label="Cancelar edición fecha de nacimiento">Cancelar</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>Nivel de educación</th>
+            <td>
+              <div class="editable-field" id="nivel-educacion-field">
+                <span class="display-text">Agregar nivel de educación</span>
+                <input
+                  type="text"
+                  class="edit-input hidden"
+                  aria-label="Editar nivel de educación"
+                  placeholder="Nivel de educación"
+                />
+                <button class="edit-btn" aria-label="Editar nivel de educación" title="Editar nivel de educación">✏️</button>
+                <button class="save-button hidden" aria-label="Guardar nivel de educación">Guardar</button>
+                <button class="cancel-button hidden" aria-label="Cancelar edición nivel de educación">Cancelar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <div class="help-button-container">
+      <button aria-label="Help" class="help-button" type="button">
+        <i class="fas fa-question-circle"></i>
+      </button>
+    </div>
+  </main>
+
+  <script>
+    // Helper function to toggle editing mode
+    function toggleEditMode(container, editing) {
+      const displayText = container.querySelector('.display-text');
+      const editInput = container.querySelector('.edit-input');
+      const editBtn = container.querySelector('.edit-btn');
+      const saveBtn = container.querySelector('.save-button');
+      const cancelBtn = container.querySelector('.cancel-button');
+
+      if (editing) {
+        displayText.classList.add('hidden');
+        editInput.classList.remove('hidden');
+        editBtn.classList.add('hidden');
+        saveBtn.classList.remove('hidden');
+        cancelBtn.classList.remove('hidden');
+        if (editInput.tagName === 'SELECT' || editInput.type === 'date') {
+          // If select or date, set value to current text if possible
+          if (editInput.tagName === 'SELECT') {
+            const currentText = displayText.textContent.trim().toLowerCase();
+            let found = false;
+            for (const option of editInput.options) {
+              if (option.text.toLowerCase() === currentText) {
+                editInput.value = option.value;
+                found = true;
+                break;
+              }
+            }
+            if (!found) editInput.value = '';
+          } else if (editInput.type === 'date') {
+            // Try to parse date from display text if possible (format dd/mm/yyyy or similar)
+            const text = displayText.textContent.trim();
+            // No date set if text is "Agregar fecha de nacimiento"
+            if (text.toLowerCase().includes('agregar')) {
+              editInput.value = '';
+            } else {
+              // Try to parse date in yyyy-mm-dd format or fallback empty
+              const date = new Date(text);
+              if (!isNaN(date)) {
+                // Format to yyyy-mm-dd
+                const yyyy = date.getFullYear();
+                const mm = (date.getMonth() + 1).toString().padStart(2, '0');
+                const dd = date.getDate().toString().padStart(2, '0');
+                editInput.value = `${yyyy}-${mm}-${dd}`;
+              } else {
+                editInput.value = '';
+              }
+            }
+          }
+        } else {
+          editInput.value = displayText.textContent.trim() === 'Agregar nombre adicional' || displayText.textContent.trim() === 'Agregar nivel de educación' ? '' : displayText.textContent.trim();
+        }
+        editInput.focus();
+      } else {
+        displayText.classList.remove('hidden');
+        editInput.classList.add('hidden');
+        editBtn.classList.remove('hidden');
+        saveBtn.classList.add('hidden');
+        cancelBtn.classList.add('hidden');
+      }
+    }
+
+    // Save changes and update display text
+    function saveChanges(container) {
+      const displayText = container.querySelector('.display-text');
+      const editInput = container.querySelector('.edit-input');
+      let newValue = '';
+
+      if (editInput.tagName === 'SELECT') {
+        const selectedOption = editInput.options[editInput.selectedIndex];
+        newValue = selectedOption ? selectedOption.text : '';
+      } else if (editInput.type === 'date') {
+        if (editInput.value) {
+          // Format date as dd/mm/yyyy for display
+          const date = new Date(editInput.value);
+          if (!isNaN(date)) {
+            const dd = date.getDate().toString().padStart(2, '0');
+            const mm = (date.getMonth() + 1).toString().padStart(2, '0');
+            const yyyy = date.getFullYear();
+            newValue = `${dd}/${mm}/${yyyy}`;
+          } else {
+            newValue = '';
+          }
+        } else {
+          newValue = '';
+        }
+      } else {
+        newValue = editInput.value.trim();
+      }
+
+      if (!newValue) {
+        // If empty, show placeholder text
+        if (container.id === 'sexo-field') newValue = 'Agregar género';
+        else if (container.id === 'nombre-adicional-field') newValue = 'Agregar nombre adicional';
+        else if (container.id === 'fecha-nacimiento-field') newValue = 'Agregar fecha de nacimiento';
+        else if (container.id === 'nivel-educacion-field') newValue = 'Agregar nivel de educación';
+      }
+
+      displayText.textContent = newValue;
+      toggleEditMode(container, false);
+    }
+
+    // Cancel editing and revert input value
+    function cancelChanges(container) {
+      toggleEditMode(container, false);
+    }
+
+    // Setup event listeners for all editable fields
+    document.querySelectorAll('.editable-field').forEach((container) => {
+      const editBtn = container.querySelector('.edit-btn');
+      const saveBtn = container.querySelector('.save-button');
+      const cancelBtn = container.querySelector('.cancel-button');
+
+      editBtn.addEventListener('click', () => {
+        toggleEditMode(container, true);
+      });
+
+      saveBtn.addEventListener('click', () => {
+        saveChanges(container);
+      });
+
+      cancelBtn.addEventListener('click', () => {
+        cancelChanges(container);
+      });
+
+      // Optional: Save on Enter key for text inputs
+      const editInput = container.querySelector('.edit-input');
+      if (editInput.tagName === 'INPUT' && editInput.type === 'text') {
+        editInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            saveChanges(container);
+          } else if (e.key === 'Escape') {
+            e.preventDefault();
+            cancelChanges(container);
+          }
+        });
+      }
+
+      // Optional: Save on Enter key for select (not typical, but can add)
+      if (editInput.tagName === 'SELECT') {
+        editInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            saveChanges(container);
+          } else if (e.key === 'Escape') {
+            e.preventDefault();
+            cancelChanges(container);
+          }
+        });
+      }
+
+      // Optional: Save on Enter or Escape for date input
+      if (editInput.tagName === 'INPUT' && editInput.type === 'date') {
+        editInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            saveChanges(container);
+          } else if (e.key === 'Escape') {
+            e.preventDefault();
+            cancelChanges(container);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

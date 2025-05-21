@@ -1,0 +1,138 @@
+.header-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #e3f2fd;
+  border-left: 6px solid #1976d2;
+  border-radius: 6px;
+
+  h1 {
+    font-size: 1.8rem;
+    color: #0d47a1;
+    margin: 0;
+  }
+
+  .header-icon {
+    font-size: 1.5rem;
+    color: #1976d2;
+  }
+}
+.p-4 {
+  padding: 2rem;
+  background-color: #f5f8fb;
+  font-family: 'Roboto', sans-serif;
+}
+
+.cards-resumen {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+
+  mat-card {
+    flex: 1;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    &.total-carreras {
+      background-color: #e3f2fd;
+      color: #0d47a1;
+    }
+
+    &.aprobados {
+      background-color: #c8e6c9;
+      color: #388e3c;
+    }
+
+    &.pendientes {
+      background-color: #ffeb3b;
+      color: #f57c00;
+    }
+
+    mat-card-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    mat-card-content {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
+}
+
+.top-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  mat-form-field {
+    flex: 1;
+    min-width: 250px;
+  }
+
+  button {
+    white-space: nowrap;
+    background-color: #1976d2;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #1565c0;
+    }
+
+    mat-icon {
+      margin-right: 0.4rem;
+    }
+  }
+}
+
+.tabla-carreras {
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+    th.mat-header-cell {
+      background-color: #e3f2fd;
+      color: #0d47a1;
+      font-weight: bold;
+      padding: 1rem;
+    }
+
+    td.mat-cell {
+      padding: 1rem;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f1f8ff;
+    }
+
+    tr:hover {
+      background-color: #e0f2f1;
+    }
+
+    button {
+      mat-icon {
+        color: #1976d2;
+      }
+
+      &.mat-warn mat-icon {
+        color: #d32f2f;
+      }
+
+      &:hover mat-icon {
+        transform: scale(1.1);
+      }
+    }
+  }
+}

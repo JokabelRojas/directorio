@@ -1,0 +1,127 @@
+.header-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #e3f2fd;
+  border-left: 6px solid #1976d2;
+  border-radius: 6px;
+
+  h1 {
+    font-size: 1.8rem;
+    color: #0d47a1;
+    margin: 0;
+  }
+
+  .header-icon {
+    font-size: 1.5rem;
+    color: #1976d2;
+  }
+}
+.p-4 {
+  padding: 2rem;
+  background-color: #f5f8fb;
+  font-family: 'Roboto', sans-serif;
+}
+
+.gestion-tables-container {
+  padding: 20px;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  color: #0f3a8c;
+  margin-bottom: 30px;
+  font-size: 2.8em;
+  font-weight: 700;
+  text-align: center;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .search-field {
+    flex-grow: 1;
+  }
+
+  button {
+    background-color: #1976d2;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #1565c0;
+    }
+  }
+}
+
+mat-table {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  mat-header-row {
+    background-color: #1976d2;
+    color: white;
+    font-weight: bold;
+  }
+
+  mat-row {
+    &:hover {
+      background-color: #e3f2fd;
+    }
+  }
+
+  mat-cell, mat-header-cell {
+    padding: 1rem;
+    text-align: center;
+  }
+}
+
+.acciones {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+
+  button {
+    min-width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: transparent;
+    color: #1976d2;
+
+    &:hover {
+      background-color: #e3f2fd;
+    }
+  }
+}

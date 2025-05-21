@@ -1,0 +1,99 @@
+.header-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #e3f2fd;
+  border-left: 6px solid #1976d2;
+  border-radius: 6px;
+
+  h1 {
+    font-size: 1.8rem;
+    color: #0d47a1;
+    margin: 0;
+  }
+
+  .header-icon {
+    font-size: 1.5rem;
+    color: #1976d2;
+  }
+}
+
+.gestion-alumnos-container {
+  padding: 2rem;
+  background-color: #f5f8fb;
+  font-family: 'Roboto', sans-serif;
+
+  .top-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    align-items: center;
+
+    mat-form-field {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    button {
+      white-space: nowrap;
+      background-color: #1976d2;
+      color: white;
+
+      &:hover {
+        background-color: #1565c0;
+      }
+
+      mat-icon {
+        margin-right: 0.4rem;
+      }
+    }
+  }
+
+  .table-container {
+    overflow-x: auto;
+
+    mat-table {
+      width: 100%;
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+      mat-header-cell {
+        background-color: #e3f2fd;
+        color: #0d47a1;
+        font-weight: bold;
+        padding: 1rem;
+      }
+
+      mat-cell {
+        padding: 1rem;
+      }
+
+      mat-row:nth-child(even) {
+        background-color: #f1f8ff;
+      }
+
+      mat-row:hover {
+        background-color: #e0f2f1;
+      }
+
+      button {
+        mat-icon {
+          color: #1976d2;
+        }
+
+        &.mat-warn mat-icon {
+          color: #d32f2f;
+        }
+
+        &:hover mat-icon {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}

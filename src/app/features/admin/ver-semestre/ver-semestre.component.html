@@ -1,0 +1,33 @@
+<div class="semestre-container">
+    <div class="semestre-header">
+      <h2>Detalles del Semestre</h2>
+    </div>
+  
+    <div class="semestre-info">
+      <div class="info-item">
+        <strong>Semestre:</strong> <span>{{ semestreForm.value.semestre }}</span>
+      </div>
+      <div class="info-item">
+        <strong>Carrera:</strong> <span>{{ semestreForm.value.carrera }}</span>
+      </div>
+      <div class="info-item">
+        <strong>Fecha de inicio:</strong> <span>{{ semestreForm.value.fechaInicio }}</span>
+      </div>
+      <div class="info-item">
+        <strong>Fecha de fin:</strong> <span>{{ semestreForm.value.fechaFin }}</span>
+      </div>
+      <div class="info-item">
+        <strong>Total materias:</strong> <span>{{ semestreForm.value.totalMaterias }}</span>
+      </div>
+      <div class="info-item">
+        <strong>Materias aprobadas:</strong> <span>{{ semestreForm.value.materiasAprobadas }}</span>
+      </div>
+    </div>
+  
+    <div class="action-buttons">
+      <button mat-raised-button color="primary" *ngIf="!isEditing" (click)="enableEditing()">Editar Semestre</button>
+      <button mat-raised-button color="accent" *ngIf="isEditing" (click)="saveChanges()">Guardar Cambios</button>
+      <button mat-raised-button color="warn" *ngIf="isEditing" (click)="cancelEditing()">Cancelar</button>
+    </div>
+  </div>
+  

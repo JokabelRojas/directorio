@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Editar Asignación</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>N°</mat-label>
+    <input matInput [ngModel]="ingreso.n" [readonly]="true">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Tablet</mat-label>
+    <input matInput [(ngModel)]="ingreso.tablet" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Usuario</mat-label>
+    <input matInput [(ngModel)]="ingreso.usuario" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fecha de Asignación</mat-label>
+    <input matInput [matDatepicker]="fechaAsignacionPicker" [(ngModel)]="ingreso.fechaAsignacion" required>
+    <mat-datepicker-toggle matSuffix [for]="fechaAsignacionPicker"></mat-datepicker-toggle>
+    <mat-datepicker #fechaAsignacionPicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fecha de Devolución (Opcional)</mat-label>
+    <input matInput [matDatepicker]="fechaDevolucionPicker" [(ngModel)]="ingreso.fechaDevolucion">
+    <mat-datepicker-toggle matSuffix [for]="fechaDevolucionPicker"></mat-datepicker-toggle>
+    <mat-datepicker #fechaDevolucionPicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Observación</mat-label>
+    <input matInput [(ngModel)]="ingreso.observacion">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Estado</mat-label>
+    <mat-select [(ngModel)]="ingreso.estado" required>
+      <mat-option *ngFor="let estado of estados" [value]="estado.value">
+        {{ estado.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="guardar()" [disabled]="!ingreso.tablet || !ingreso.usuario || !ingreso.fechaAsignacion || !ingreso.estado">Guardar</button>
+</mat-dialog-actions>

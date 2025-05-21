@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+@use './app/style/theme-colors';
+
+// Estilos globales
+html, body { 
+  height: 100%; 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+@include mat.app-background();
+
+html {
+  //ng color-scheme: light dark;
+  color-scheme: light;
+  @include mat.theme((
+    typography: Roboto,
+    density: 0
+  ));
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+:root {
+  @include mat.list-overrides((
+    active-indicator-shape: none,
+  ));
+}

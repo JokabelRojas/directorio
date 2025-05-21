@@ -1,0 +1,83 @@
+
+<div class="header-card">
+  <mat-icon class="header-icon">school</mat-icon>
+  <h1>Estados</h1>
+</div>
+  <div class="p-4 space-y-4">
+    <!-- Resumen de Carreras -->
+    <div class="cards-resumen">
+      <mat-card class="total-carreras">
+        <mat-card-title>Total Carreras</mat-card-title>
+        <mat-card-content class="text-3xl">{{ totalCarreras() }}</mat-card-content>
+      </mat-card>
+      <mat-card class="aprobados">
+        <mat-card-title>Aprobados</mat-card-title>
+        <mat-card-content class="text-3xl">{{ totalAprobados() }}</mat-card-content>
+      </mat-card>
+      <mat-card class="pendientes">
+        <mat-card-title>Pendientes</mat-card-title>
+        <mat-card-content class="text-3xl">{{ totalPendientes() }}</mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Filtros y Botones -->
+    <div class="top-actions">
+      <mat-form-field appearance="outline" class="w-1/2">
+        <mat-label>Buscar</mat-label>
+        <input matInput (input)="applyFilter($event)" placeholder="Buscar estudiante, carrera, estado...">
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="agregarTablet()">Agregar Carrera</button>
+    </div>
+
+    <!-- Tabla de Carreras -->
+    <div class="tabla-carreras">
+      <table mat-table [dataSource]="dataSource()" class="mat-elevation-z8 w-full">
+        <ng-container matColumnDef="n">
+          <th mat-header-cell *matHeaderCellDef> N° </th>
+          <td mat-cell *matCellDef="let element"> {{ element.n }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="codigo">
+          <th mat-header-cell *matHeaderCellDef> Estudiante </th>
+          <td mat-cell *matCellDef="let element"> {{ element.codigo }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="marca">
+          <th mat-header-cell *matHeaderCellDef> Carrera </th>
+          <td mat-cell *matCellDef="let element"> {{ element.marca }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="modelo">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element"> {{ element.modelo }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="grado">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element"> {{ element.grado }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef> Estado </th>
+          <td mat-cell *matCellDef="let element"> {{ element.estado }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="accent" (click)="editarTablet(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="eliminarTablet(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+
