@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -9,10 +9,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { CrearIngresoDialogComponent } from './crear-ingreso-dialog/crear-ingreso-dialog.component';
 
 interface Periodo {
+  id: number;
   nombre: string;
   estado: 'activo' | 'porComenzar' | 'finalizado';
+  fechaCreacion: string;
 }
 
 @Component({
@@ -28,90 +32,100 @@ interface Periodo {
     MatButtonModule,
     MatCardModule,
     MatSelectModule,
-    MatChipsModule
+    MatChipsModule,
+    MatDialogModule
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './ingreso-tablet.component.html',
   styleUrls: ['./ingreso-tablet.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IngresoTabletComponent implements OnInit {
-  periodos: Periodo[] = [
-    { nombre: '2023 - I - Administración', estado: 'activo' },
-    { nombre: '2023 - II - Administración', estado: 'finalizado' },
-    { nombre: '2024 - I - Ingeniería de Software', estado: 'porComenzar' },
-    { nombre: '2024 - II - Ingeniería de Software', estado: 'activo' },
-    { nombre: '2024 - I - Mecánica', estado: 'finalizado' },
-    { nombre: '2024 - II - Mecánica', estado: 'porComenzar' },
-    { nombre: '2025 - I - Diseño Gráfico', estado: 'activo' },
-    { nombre: '2025 - II - Diseño Gráfico', estado: 'porComenzar' }
-  ];
-
-  periodoFiltro: string = '';
+  periodos: Periodo[] = [];
   periodosFiltrados: Periodo[] = [];
+  periodoFiltro: string = '';
   periodoSeleccionado: string = '';
-  nuevoNombre: string = '';
-  nuevoEstado: 'activo' | 'porComenzar' | 'finalizado' = 'activo';
-  mostrarFormulario: boolean = false;
+  displayedColumns: string[] = ['nombre', 'estado', 'acciones']; // Ajustado para coincidir con el HTML
 
-  // Definir las columnas que se van a mostrar en la tabla
-  displayedColumns: string[] = ['nombre', 'estado', 'acciones'];
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.periodosFiltrados = this.periodos; // Inicialmente muestra todos
+    this.cargarPeriodos();
+    this.periodosFiltrados = [...this.periodos];
   }
 
-  filtrarPeriodos() {
+  cargarPeriodos(): void {
+    const periodosGuardados = localStorage.getItem('periodos');
+    this.periodos = periodosGuardados ? JSON.parse(periodosGuardados) : [];
+    this.periodosFiltrados = [...this.periodos];
+  }
+
+  guardarPeriodos(): void {
+    localStorage.setItem('periodos', JSON.stringify(this.periodos));
+  }
+
+  filtrarPeriodos(): void {
     const filtro = this.periodoFiltro.toLowerCase();
     this.periodosFiltrados = this.periodos.filter(p =>
-      p.nombre.toLowerCase().includes(filtro)
+      p.nombre.toLowerCase().includes(filtro) ||
+      p.estado.toLowerCase().includes(filtro)
     );
   }
 
-  seleccionarPeriodo(nombre: string) {
-    this.periodoSeleccionado = nombre;
+  abrirDialogoCrearPeriodo(): void {
+    const dialogRef = this.dialog.open(CrearIngresoDialogComponent, {
+      width: '600px',
+      data: { 
+        id: Date.now(),
+        nombre: '',
+        estado: 'porComenzar',
+        fechaCreacion: new Date().toISOString()
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result: Periodo) => {
+      if (result) {
+        this.periodos.push(result);
+        this.guardarPeriodos();
+        this.filtrarPeriodos();
+      }
+    });
   }
 
-  toggleFormulario() {
-    this.mostrarFormulario = !this.mostrarFormulario;
+  abrirDialogoEditarPeriodo(periodo: Periodo): void {
+    const dialogRef = this.dialog.open(CrearIngresoDialogComponent, {
+      width: '600px',
+      data: { ...periodo }
+    });
+
+    dialogRef.afterClosed().subscribe((result: Periodo) => {
+      if (result) {
+        const index = this.periodos.findIndex(p => p.id === result.id);
+        if (index !== -1) {
+          this.periodos[index] = result;
+          this.guardarPeriodos();
+          this.filtrarPeriodos();
+        }
+      }
+    });
   }
 
-  crearPeriodo() {
-    if (this.nuevoNombre.trim()) {
-      this.periodos.push({
-        nombre: this.nuevoNombre.trim(),
-        estado: this.nuevoEstado
-      });
-
-      // Limpiar campos después de crear
-      this.nuevoNombre = '';
-      this.nuevoEstado = 'activo';
-      this.mostrarFormulario = false;
+  eliminarPeriodo(periodo: Periodo): void {
+    if (confirm(`¿Estás seguro de eliminar el período ${periodo.nombre}?`)) {
+      this.periodos = this.periodos.filter(p => p.id !== periodo.id);
+      this.guardarPeriodos();
+      this.filtrarPeriodos();
     }
   }
 
-  editarPeriodo(periodo: Periodo) {
-    this.nuevoNombre = periodo.nombre;
-    this.nuevoEstado = periodo.estado;
-    this.mostrarFormulario = true;
-  }
-
-  eliminarPeriodo(periodo: Periodo) {
-    const index = this.periodos.indexOf(periodo);
-    if (index !== -1) {
-      this.periodos.splice(index, 1);
-    }
-  }
-
-  get periodosActivos() {
+  get periodosActivos(): number {
     return this.periodos.filter(p => p.estado === 'activo').length;
   }
 
-  get periodosPorComenzar() {
+  get periodosPorComenzar(): number {
     return this.periodos.filter(p => p.estado === 'porComenzar').length;
   }
 
-  get periodosFinalizados() {
+  get periodosFinalizados(): number {
     return this.periodos.filter(p => p.estado === 'finalizado').length;
   }
 }

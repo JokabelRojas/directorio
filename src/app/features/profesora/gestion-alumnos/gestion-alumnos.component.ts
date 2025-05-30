@@ -12,13 +12,17 @@ import { EditarAlumnoDialogComponent } from './editar-alumno-dialog/editar-alumn
 
 interface Alumno {
   n: number;
+  id: string;
   nombre: string;
   apellido: string;
   grado: string;
   dni: string;
   seccion: string;
-  anioEscolar: number;
+  anioEscolar: string;
   telefonoApoderado: string;
+  codigo: string;
+  carrera: string;
+  estado: string;
 }
 
 @Component({
@@ -32,28 +36,64 @@ interface Alumno {
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    CrearAlumnoDialogComponent,
-    EditarAlumnoDialogComponent,
   ],
   templateUrl: './gestion-alumnos.component.html',
-  styleUrl: './gestion-alumnos.component.scss'
+  styleUrl: './gestion-alumnos.component.scss',
 })
 export class GestionAlumnosComponent implements OnInit {
   alumnos = signal<Alumno[]>([]);
-  displayedColumns: string[] = ['n', 'nombre', 'apellido', 'grado', 'dni', 'seccion', 'anioEscolar', 'telefonoApoderado', 'acciones'];
+  displayedColumns: string[] = [
+    'n',
+    'nombre',
+    'apellido',
+    'grado',
+    'dni',
+    'seccion',
+    'anioEscolar',
+    'telefonoApoderado',
+    'carrera',
+    'codigo',
+    'estado',
+    'acciones',
+  ];
   dataSource = computed(() => new MatTableDataSource(this.alumnos()));
   searchTerm = signal<string>('');
   dialog = inject(MatDialog);
-  nextId = 1;
 
   ngOnInit(): void {
+    this.cargarAlumnos();
+
     const ds = this.dataSource();
     ds.filterPredicate = (data: Alumno, filter: string) => {
       const lowerCaseFilter = filter.toLowerCase();
-      return data.nombre.toLowerCase().includes(lowerCaseFilter) ||
-             data.apellido.toLowerCase().includes(lowerCaseFilter) ||
-             data.dni.includes(lowerCaseFilter);
+      return (
+        data.nombre.toLowerCase().includes(lowerCaseFilter) ||
+        data.apellido.toLowerCase().includes(lowerCaseFilter) ||
+        data.dni.includes(lowerCaseFilter)
+      );
     };
+  }
+
+  cargarAlumnos(): void {
+    const alumnosLocalStorage = localStorage.getItem('alumnos');
+    if (alumnosLocalStorage) {
+      const alumnosData = JSON.parse(alumnosLocalStorage);
+      const alumnosMapeados = alumnosData.map((alumno: any, index: number) => ({
+        n: index + 1,
+        id: alumno.id,
+        nombre: alumno.nombres,
+        apellido: alumno.apellidos,
+        grado: alumno.semestre,
+        dni: alumno.dni,
+        seccion: alumno.email,
+        anioEscolar: alumno.periodo,
+        telefonoApoderado: alumno.telefono,
+        codigo: alumno.codigo,
+        carrera: alumno.carrera,
+        estado: alumno.estado,
+      }));
+      this.alumnos.set(alumnosMapeados);
+    }
   }
 
   applyFilter(event: Event) {
@@ -67,30 +107,33 @@ export class GestionAlumnosComponent implements OnInit {
       data: alumno,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.alumnos.update(currentAlumnos =>
-          currentAlumnos.map(a => (a.n === result.n ? result : a))
-        );
+        this.cargarAlumnos();
       }
     });
   }
 
   eliminarAlumno(alumno: Alumno): void {
-    this.alumnos.update(currentAlumnos => currentAlumnos.filter(a => a.n !== alumno.n));
+    const alumnosLocalStorage = localStorage.getItem('alumnos');
+    if (alumnosLocalStorage) {
+      const alumnos = JSON.parse(alumnosLocalStorage);
+      const alumnosActualizados = alumnos.filter(
+        (a: any) => a.id !== alumno.id
+      );
+      localStorage.setItem('alumnos', JSON.stringify(alumnosActualizados));
+      this.cargarAlumnos();
+    }
   }
 
   abrirDialogoCrearAlumno(): void {
     const dialogRef = this.dialog.open(CrearAlumnoDialogComponent, {
-      width: '400px',
+      width: '600px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.alumnos.update(currentAlumnos => {
-          const newId = currentAlumnos.length > 0 ? Math.max(...currentAlumnos.map(a => a.n)) + 1 : 1;
-          return [...currentAlumnos, { ...result, n: newId }];
-        });
+        this.cargarAlumnos();
       }
     });
   }

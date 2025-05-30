@@ -1,0 +1,27 @@
+    <div class="table-container">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Período</th>
+              <th>Cantidad de Estudiantes</th>
+              <th>Porcentaje</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of periodosArray">
+              <td>{{ item.periodo }}</td>
+              <td>{{ item.cantidad }}</td>
+              <td>{{ item.porcentaje }}%</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td><strong>Total</strong></td>
+              <td><strong>{{ totalEstudiantes }}</strong></td>
+              <td>100%</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>

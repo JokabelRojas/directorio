@@ -1,54 +1,177 @@
-<h2 mat-dialog-title>Crear Nuevo Alumno</h2>
+<div class="student-form-container">
+  <h2 class="form-title">Registro de Alumno</h2>
 
-<mat-dialog-content>
-  <mat-form-field appearance="outline">
-    <mat-label>Nombres</mat-label>
-    <input matInput [(ngModel)]="alumno.nombre" required>
-  </mat-form-field>
+  <form class="student-form" #alumnoForm="ngForm">
+    <div class="form-columns">
+      <div class="form-column">
+        <div class="form-group">
+          <label for="nombres">Nombres*</label>
+          <input
+            type="text"
+            id="nombres"
+            [(ngModel)]="alumno.nombres"
+            name="nombres"
+            required
+            class="form-input"
+          />
+        </div>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Apellidos</mat-label>
-    <input matInput [(ngModel)]="alumno.apellido" required>
-  </mat-form-field>
+        <div class="form-group">
+          <label for="apellidos">Apellidos*</label>
+          <input
+            type="text"
+            id="apellidos"
+            [(ngModel)]="alumno.apellidos"
+            name="apellidos"
+            required
+            class="form-input"
+          />
+        </div>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Semestre</mat-label>
-    <input matInput [(ngModel)]="alumno.grado" required>
-  </mat-form-field>
+        <div class="form-group">
+          <label for="dni">DNI*</label>
+          <input
+            type="text"
+            id="dni"
+            [(ngModel)]="alumno.dni"
+            name="dni"
+            required
+            maxlength="8"
+            class="form-input"
+          />
+        </div>
 
-  <mat-form-field appearance="outline">
-    <mat-label>ID</mat-label>
-    <input matInput [(ngModel)]="alumno.dni" required>
-  </mat-form-field>
+        <div class="form-group">
+          <label for="fechaNacimiento">Fecha Nacimiento</label>
+          <input
+            type="date"
+            id="fechaNacimiento"
+            [(ngModel)]="alumno.fechaNacimiento"
+            name="fechaNacimiento"
+            class="form-input"
+          />
+        </div>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Gmail</mat-label>
-    <input matInput [(ngModel)]="alumno.seccion">
-  </mat-form-field>
+        <div class="form-group">
+          <label for="genero">Género*</label>
+          <select
+            id="genero"
+            [(ngModel)]="alumno.genero"
+            name="genero"
+            required
+            class="form-input"
+          >
+            <option value="M">Masculino</option>
+            <option value="F">Femenino</option>
+            <option value="O">Otro</option>
+          </select>
+        </div>
+      </div>
 
-  <mat-form-field appearance="outline">
-    <mat-label> Periodo</mat-label>
-    <mat-select [(ngModel)]="alumno.anioEscolar" required>
-      <mat-option *ngFor="let anio of aniosEscolares" [value]="anio">
-        {{ anio }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+      <div class="form-column">
+        <div class="form-group">
+          <label for="carrera">Carrera*</label>
+          <select
+            id="carrera"
+            [(ngModel)]="alumno.carrera"
+            name="carrera"
+            required
+            class="form-input"
+          >
+            <option *ngFor="let carrera of carreras" [value]="carrera.id">
+              {{ carrera.nombre }}
+            </option>
+          </select>
+        </div>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Teléfono</mat-label>
-    <input matInput [(ngModel)]="alumno.telefonoApoderado">
-  </mat-form-field>
-</mat-dialog-content>
+        <div class="form-group">
+          <label for="periodo">Periodo*</label>
+          <select
+            id="periodo"
+            [(ngModel)]="alumno.periodo"
+            name="periodo"
+            required
+            class="form-input"
+          >
+            <option
+              *ngFor="let periodo of periodosAcademicos"
+              [value]="periodo.nombre"
+            >
+              {{ periodo.nombre }}
+            </option>
+          </select>
+        </div>
 
-<mat-dialog-actions align="end">
-  <button mat-button (click)="cancelar()">Cancelar</button>
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="crear()"
-    [disabled]="!alumno.nombre || !alumno.apellido || !alumno.grado || !alumno.dni || !alumno.anioEscolar"
-  >
-    Crear
-  </button>
-</mat-dialog-actions>
+        <div class="form-group">
+          <label for="semestre">Semestre*</label>
+          <select
+            id="semestre"
+            [(ngModel)]="alumno.semestre"
+            name="semestre"
+            required
+            class="form-input"
+          >
+            <option *ngFor="let sem of semestres" [value]="sem">
+              {{ sem }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email*</label>
+          <input
+            type="email"
+            id="email"
+            [(ngModel)]="alumno.email"
+            name="email"
+            required
+            class="form-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input
+            type="tel"
+            id="telefono"
+            [(ngModel)]="alumno.telefono"
+            name="telefono"
+            class="form-input"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="full-width-group">
+      <label for="direccion">Dirección</label>
+      <input
+        type="text"
+        id="direccion"
+        [(ngModel)]="alumno.direccion"
+        name="direccion"
+        class="form-input"
+      />
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="cancel-btn" (click)="cancelar()">
+        Cancelar
+      </button>
+      <button
+        type="button"
+        class="submit-btn"
+        (click)="crearAlumno()"
+        [disabled]="
+          !alumno.nombres ||
+          !alumno.apellidos ||
+          !alumno.dni ||
+          !alumno.carrera ||
+          !alumno.periodo ||
+          !alumno.email
+        "
+      >
+        Registrar Alumno
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,46 @@
+.stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 48.68%));
+      gap: 1rem;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .stat-card {
+      border-radius: 12px;
+      padding: 1.5rem;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-card h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .stat-card p {
+      margin: 0;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    .stat-card p span {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .total { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); }
+    .hombres { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+    .mujeres { background: linear-gradient(135deg, #f46b45 0%, #eea849 100%); }
+    .otros { background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%); }
+
+    @media (max-width: 600px) {
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+    }

@@ -1,4 +1,3 @@
-// src/app/app.routes.ts
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfesoraComponent } from './features/profesora/profesora.component';
@@ -12,6 +11,7 @@ import { DirectoryComponent } from './features/admin/directory/directory.compone
 import { PerfilComponent } from './features/admin/perfil/perfil.component';
 import { VerSemestreComponent } from './features/admin/ver-semestre/ver-semestre.component';
 import { NotificacionComponent } from './features/admin/notificacion/notificacion.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -43,8 +43,9 @@ export const routes: Routes = [
     data: { role: 'profesora' },
     children: [
       { path: '', redirectTo: 'gestion-alumnos', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
       { path: 'gestion-alumnos', component: GestionAlumnosComponent },
-      { path: 'gestion-tables', component: GestionTablesComponent },
+      // { path: 'gestion-tables', component: GestionTablesComponent },
       { path: 'ingreso-tablet', component: IngresoTabletComponent },
       { path: 'historial-asignacion', component: HistorialAsignacionComponent },
     ],

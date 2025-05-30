@@ -1,64 +1,62 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
-// Angular Material
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-
-interface EstadoAsignacion {
-  value: string;
-  viewValue: string;
+interface Periodo {
+  id: number;
+  nombre: string;
+  estado: string;
+  fechaCreacion: string;
 }
 
 @Component({
   selector: 'app-crear-ingreso-dialog',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-  ],
+  imports: [CommonModule,FormsModule],
   templateUrl: './crear-ingreso-dialog.component.html',
   styleUrl: './crear-ingreso-dialog.component.scss',
 })
 export class CrearIngresoDialogComponent {
-  ingreso = {
-    tablet: '',
-    usuario: '',
-    fechaAsignacion: new Date(),
-    fechaDevolucion: null,
-    observacion: '',
-    estado: '',
-  };
+  nuevoNombre: string = '';
+  nuevoEstado: string = 'porComenzar'; // Valor por defecto
+  mostrarFormulario: boolean = true; // Puedes ajustar esto según tu lógica de visualización
 
-  estados: EstadoAsignacion[] = [
-    { value: 'asignado', viewValue: 'Asignado' },
-    { value: 'devuelto', viewValue: 'Devuelto' },
-    { value: 'pendiente', viewValue: 'Pendiente' },
-  ];
+  crearPeriodo(): void {
+    if (!this.nuevoNombre || !this.nuevoEstado) {
+      alert('Por favor complete todos los campos obligatorios');
+      return;
+    }
 
-  constructor(
-    public dialogRef: MatDialogRef<CrearIngresoDialogComponent>
-  ) {}
+    const periodosGuardados: Periodo[] = JSON.parse(localStorage.getItem('periodos') || '[]');
+    
+    const nuevoPeriodo: Periodo = {
+      id: this.generarIdUnico(periodosGuardados),
+      nombre: this.nuevoNombre,
+      estado: this.nuevoEstado,
+      fechaCreacion: new Date().toISOString()
+    };
 
-  cancelar(): void {
-    this.dialogRef.close();
+    periodosGuardados.push(nuevoPeriodo);
+
+    localStorage.setItem('periodos', JSON.stringify(periodosGuardados));
+
+    alert('Período creado exitosamente!');
+
+    this.resetearFormulario();
   }
 
-  crear(): void {
-    this.dialogRef.close(this.ingreso);
+  private generarIdUnico(periodos: Periodo[]): number {
+    if (periodos.length === 0) return 1;
+    const maxId = Math.max(...periodos.map(p => p.id));
+    return maxId + 1;
+  }
+
+  private resetearFormulario(): void {
+    this.nuevoNombre = '';
+    this.nuevoEstado = 'porComenzar';
+  }
+
+  static obtenerPeriodos(): Periodo[] {
+    return JSON.parse(localStorage.getItem('periodos') || '[]');
   }
 }
